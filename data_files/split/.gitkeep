@@ -1,0 +1,14 @@
+# This file ensures the empty directory is included in Git
+# Split datasets (train/validation/test) will be placed in this directory
+
+# Expected data format:
+# - Subdirectories for each cryptocurrency (e.g., bitcoin/, ethereum/)
+# - Each subdirectory contains numpy arrays:
+#   * X_train.npy, y_train.npy: Training data
+#   * X_val.npy, y_val.npy: Validation data
+#   * X_test.npy, y_test.npy: Test data
+#   * metadata.csv: Information about the split (feature names, split ratios)
+
+# Data splitting script: data_splitting.py
+# To generate files in this directory, run:
+# python src/data/data_splitting.py --input-dir data/features --output-dir data/split
