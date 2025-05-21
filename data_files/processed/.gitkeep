@@ -1,0 +1,12 @@
+# This file ensures the empty directory is included in Git
+# Processed cryptocurrency data will be placed in this directory after normalization
+
+# Expected data format:
+# - CSV files with processed cryptocurrency data
+# - Features normalized to range [0,1] using Min-Max scaling
+# - No missing values
+# - Standardized column names
+
+# Processing script: data_preprocessing.py
+# To generate files in this directory, run:
+# python src/data/data_preprocessing.py --input-dir data/raw --output-dir data/processed
