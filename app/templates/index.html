@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency Price Forecasting</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Crypto Price Forecasting</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#predictions">Predictions</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <header class="text-center mb-5">
+            <h1 class="display-4">Cryptocurrency Price Forecasting</h1>
+            <p class="lead">Using LGBM Neural Network and Deep Learning models for real-time price predictions</p>
+        </header>
+
+        <section id="about" class="mb-5">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>About the Project</h2>
+                    <p>This project implements a price prediction system for cryptocurrencies using advanced machine learning techniques. The system combines Convolutional Neural Networks (CNN) for capturing short-term patterns with Light Gradient Boosted Machine (LGBM) for efficient handling of large volumes of data.</p>
+                    <p>The model achieves approximately 97% accuracy in predicting cryptocurrency price movements, helping investors make informed decisions in the volatile crypto market.</p>
+                </div>
+                <div class="col-lg-6">
+                    <h2>Features</h2>
+                    <ul>
+                        <li>Real-time price predictions for major cryptocurrencies</li>
+                        <li>Multiple model options (CNN, LGBM, and Hybrid)</li>
+                        <li>Visualizations of historical prices and predictions</li>
+                        <li>Model comparison capabilities</li>
+                        <li>High accuracy rate of ~97%</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="predictions" class="mb-5">
+            <h2 class="text-center mb-4">Make a Prediction</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Single Model Prediction</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="predictionForm">
+                                <div class="mb-3">
+                                    <label for="cryptocurrency" class="form-label">Select Cryptocurrency</label>
+                                    <select class="form-select" id="cryptocurrency" name="cryptocurrency" required>
+                                        {% for crypto in cryptos %}
+                                        <option value="{{ crypto }}">{{ crypto.capitalize() }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="model_type" class="form-label">Select Model Type</label>
+                                    <select class="form-select" id="model_type" name="model_type" required>
+                                        <option value="hybrid">Hybrid (LGBM + CNN)</option>
+                                        <option value="lgbm">LGBM</option>
+                                        <option value="cnn">CNN</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Predict Price</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0">Compare Models</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="comparisonForm">
+                                <div class="mb-3">
+                                    <label for="crypto_compare" class="form-label">Select Cryptocurrency</label>
+                                    <select class="form-select" id="crypto_compare" name="cryptocurrency" required>
+                                        {% for crypto in cryptos %}
+                                        <option value="{{ crypto }}">{{ crypto.capitalize() }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <p class="text-muted">This will compare predictions from all three models (CNN, LGBM, and Hybrid).</p>
+                                <button type="submit" class="btn btn-success w-100">Compare Models</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="results" class="mb-5 d-none">
+            <h2 class="text-center mb-4">Prediction Results</h2>
+            <div class="card">
+                <div class="card-header" id="resultHeader">
+                    <h5 class="mb-0">Cryptocurrency Price Prediction</h5>
+                </div>
+                <div class="card-body">
+                    <div id="loadingSpinner" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Making prediction...</p>
+                    </div>
+                    <div id="predictionResult" class="d-none">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="resultDetails">
+                                    <!-- Prediction details will be populated here -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="predictionChart">
+                                    <!-- Prediction chart will be displayed here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="comparisonResult" class="d-none">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div id="comparisonDetails">
+                                    <!-- Comparison details will be populated here -->
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="comparisonChart">
+                                    <!-- Comparison chart will be displayed here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p>Blockchain and Deep Learning-Based Models for Crypto Price Forecasting</p>
+            <p>Based on research by Sai Monika S, et al.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
