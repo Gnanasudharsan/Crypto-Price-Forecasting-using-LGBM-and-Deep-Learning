@@ -1,0 +1,15 @@
+# This file ensures the empty directory is included in Git
+# Feature-engineered cryptocurrency data will be placed in this directory
+
+# Expected data format:
+# - CSV files with feature-engineered cryptocurrency data
+# - Includes technical indicators such as:
+#   * Moving averages (SMA, EMA)
+#   * Momentum indicators (RSI, MACD)
+#   * Volatility measures (Bollinger Bands, ATR)
+#   * Price-related features (returns, momentum)
+#   * Volume indicators
+
+# Feature engineering script: feature_engineering.py
+# To generate files in this directory, run:
+# python src/features/feature_engineering.py --input-dir data/processed --output-dir data/features
