@@ -1,0 +1,46 @@
+from setuptools import setup, find_packages
+
+setup(
+    name="crypto-price-forecasting",
+    version="0.1.0",
+    description="Blockchain and Deep Learning-Based Models for Crypto Price Forecasting",
+    author="Based on research by Sai Monika S, et al.",
+    packages=find_packages(),
+    install_requires=[
+        "numpy>=1.21.0",
+        "pandas>=1.3.0",
+        "scikit-learn>=1.0.0",
+        "matplotlib>=3.4.0",
+        "seaborn>=0.11.0",
+        "lightgbm>=3.3.0",
+        "tensorflow>=2.8.0",
+        "keras>=2.8.0",
+        "flask>=2.0.0",
+        "requests>=2.26.0",
+        "beautifulsoup4>=4.10.0",
+        "plotly>=5.4.0",
+        "jupyter>=1.0.0",
+        "kaggle>=1.5.12",
+        "scipy>=1.7.0",
+        "joblib>=1.1.0",
+        "tqdm>=4.62.0",
+    ],
+    python_requires=">=3.8",
+    entry_points={
+        "console_scripts": [
+            "crypto-train=src.models.model_training:main",
+            "crypto-predict=src.models.price_prediction:main",
+            "crypto-app=app.app:main",
+        ],
+    },
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Financial and Insurance Industry",
+        "Intended Audience :: Science/Research",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        "Topic :: Office/Business :: Financial",
+    ],
+)
