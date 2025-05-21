@@ -1,0 +1,13 @@
+# This file ensures the empty directory is included in Git
+# Raw cryptocurrency data should be placed in this directory
+
+# Expected data format:
+# - CSV files with cryptocurrency price data
+# - Each CSV should have columns for Date, Price, Open, High, Low, Volume
+
+# Recommended data sources:
+# - Kaggle datasets: https://www.kaggle.com/datasets (search for cryptocurrency)
+# - Investing.com
+# - CryptoCompare API
+# - CoinGecko API
+# - Yahoo Finance
