@@ -22,7 +22,7 @@ The cryptocurrency market is known for its volatility and unpredictability. This
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/crypto-price-forecasting.git
+git clone https://github.com/gnanasudharsan/crypto-price-forecasting.git
 cd crypto-price-forecasting
 ```
 
